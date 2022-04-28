@@ -1,18 +1,32 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <div>{{ token }}</div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
+import Cookies from "js-cookie";
+import { Home } from "../api/Home";
 export default {
-  name: 'Home',
-  components: {
-    HelloWorld
-  }
-}
+  created() {
+    this.getToken();
+    this.getHome();
+  },
+  name: "Home",
+  data() {
+    return {
+      token: "",
+    };
+  },
+  methods: {
+    getToken() {
+      this.token = Cookies.get("Token");
+    },
+    getHome() {
+      Home().then((res) => {
+        console.log(res);
+      })
+    },
+  },
+};
 </script>
+
+<style></style>
